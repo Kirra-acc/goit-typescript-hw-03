@@ -1,11 +1,11 @@
 class Key {
-  private signature: number;
+  private signature: number = Math.random();
 
-  constructor() {
-    this.signature = Math.random();
-  }
+  // constructor() {
+  //   this.signature = Math.random();
+  // }
 
-  getSignature() {
+  getSignature(): number {
     return this.signature;
   }
 }
@@ -24,7 +24,7 @@ abstract class House {
 
   constructor(protected key: Key) {}
 
-  abstract openDoor(key: Key): boolean;
+  abstract openDoor(key: Key): void;
   //   abstract closeDoor(key: Key): boolean;
 
   comeIn(person: Person): void {
@@ -38,12 +38,14 @@ abstract class House {
 }
 
 class MyHouse extends House {
-  openDoor(key: Key) {
+  openDoor(key: Key): void {
     if (key.getSignature() !== this.key.getSignature()) {
       console.log("This door is closed. Key is not matching");
+      this.door = false;
+    } else {
+      console.log("This door is opened");
+      this.door = true;
     }
-    console.log("This door is opened");
-    return (this.door = true);
   }
   //   closeDoor(key: Key) {
   //     if (key.getSignature() !== this.key.getSignature()) {
